@@ -100,22 +100,27 @@ class PurchaseOrder extends CI_Controller
         redirect('purchaseorder/tampil_cart');
     }
 
-    public function proses_order()
+    public function proses_po()
     {
-        //-------------------------Input data pelanggan--------------------------
+
         $data_pelanggan = array(
+            'no_trans' => $this->input->post('no_trans'),
+
+        );
+        $this->m_invoice->tambah_invoice($data_pelanggan);
+        //-------------------------Input data order------------------------------
+        $data_order = array(
             'nama' => $this->input->post('nama'),
             'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat'),
-            'telp' => $this->input->post('telp')
+            'telp' => $this->input->post('telp'),
+            'tanggal_order' => date('Y-m-d'),
+            'total_harga' => $this->input->post('total_harga'),
+            'no_trans' => $this->input->post('no_trans'),
+            'tanggal' => $this->input->post('tanggal'),
+
         );
-        $id_pelanggan = $this->keranjang_model->tambah_pelanggan($data_pelanggan);
-        //-------------------------Input data order------------------------------
-        $data_order = array(
-            'tanggal' => date('Y-m-d'),
-            'pelanggan' => $id_pelanggan
-        );
-        $id_order = $this->keranjang_model->tambah_order($data_order);
+        $id_order = $this->m_invoice->tambah_po($data_order);
         //-------------------------Input data detail order-----------------------		
         if ($cart = $this->cart->contents()) {
             foreach ($cart as $item) {
@@ -125,15 +130,16 @@ class PurchaseOrder extends CI_Controller
                     'qty' => $item['qty'],
                     'harga' => $item['price']
                 );
-                $proses = $this->keranjang_model->tambah_detail_order($data_detail);
+                $proses = $this->m_invoice->tambah_detail_po($data_detail);
             }
         }
         //-------------------------Hapus shopping cart--------------------------		
         $this->cart->destroy();
-        $data['kategori'] = $this->keranjang_model->get_kategori_all();
-        $this->load->view('themes/header', $data);
-        $this->load->view('shopping/sukses', $data);
-        $this->load->view('themes/footer');
+        // $data['kategori'] = $this->keranjang_model->get_kategori_all();
+        $this->load->view('layout/header');
+        $this->load->view('layout/sidebar');
+        $this->load->view('dashboard/index');
+        $this->load->view('layout/footer');
     }
 
     public function cari()

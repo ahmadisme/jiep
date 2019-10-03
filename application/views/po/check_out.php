@@ -32,7 +32,7 @@
                     } ?>
 
                     <script src="<?php echo base_url('assets/'); ?>ajax.js"></script>
-                    <form action="<?php echo base_url() ?>shopping/proses_order" method="post" autocomplete="off">
+                    <form action="<?php echo base_url() ?>purchaseorder/proses_po" method="post" autocomplete="off">
 
                         <div class="form-group">
 
@@ -46,7 +46,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Date</label><br>
-                                <input class="form-control" type="date" name="tanggal" placeholder="Input Transaction Number">
+                                <input class="form-control" type="date" name="tanggal_order" placeholder="Input Transaction Number">
                             </div>
                             <div class="form-group">
                                 <label>Supplier Name</label><br>

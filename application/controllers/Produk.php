@@ -64,4 +64,11 @@ class Produk extends CI_Controller
         $this->m_produk->update_data($where, $data, 'tbl_produk');
         redirect('purchaseorder/index');
     }
+
+    function hapus($id_produk)
+    {
+        $where = array('id_produk' => $id_produk);
+        $this->m_produk->hapus_data($where, 'tbl_produk');
+        redirect('purchaseorder/index');
+    }
 }
