@@ -54,6 +54,23 @@
                 </ul>
             </li>
 
+            <li class="treeview active">
+                <a href="#">
+                    <i class="fa fa-files-o"></i>
+                    <span>Purchase Order</span>
+                    <!-- <span class="pull-right-container">
+                        <span class="label label-primary pull-right">4</span>
+                    </span> -->
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?= base_url('purchaseorder/list_purchaseorder') ?>"><i class="fa fa-circle-o"></i> Daftar Purchase Order</a></li>
+
+                </ul>
+            </li>
+
 
 
 

@@ -41,6 +41,29 @@ class PurchaseOrder extends CI_Controller
         $this->load->view('layout/footer');
     }
 
+    public function list_purchaseorder()
+    {
+
+        $data['list_po'] = $this->db->get('tbl_po')->result();
+        $data['list_detail_po'] = $this->db->get('tbl_detail_po')->result();
+        $this->load->view('layout/header');
+        $this->load->view('po/list_purchaseorder', $data);
+        $this->load->view('layout/sidebar');
+        $this->load->view('layout/footer');
+    }
+
+    public function detail()
+    {
+
+
+        $data['list_detail_po'] = $this->db->get_where('tbl_detail_po', ['order_id' => $this->uri->segment(3)])->result();
+        $data['list_po'] = $this->db->get_where('tbl_po', ['id' => $this->uri->segment(3)])->row();
+        $this->load->view('layout/header');
+        $this->load->view('po/detail', $data);
+        $this->load->view('layout/sidebar');
+        $this->load->view('layout/footer');
+    }
+
     public function detail_produk()
     {
         $id = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -50,6 +73,21 @@ class PurchaseOrder extends CI_Controller
         $this->load->view('shopping/detail_produk', $data);
         $this->load->view('themes/footer');
     }
+
+    public function print()
+    {
+
+
+        $data['list_detail_po'] = $this->db->get_where('tbl_detail_po', ['order_id' => $this->uri->segment(3)])->result();
+        $data['list_po'] = $this->db->get_where('tbl_po', ['id' => $this->uri->segment(3)])->row();
+        // $this->load->view('layout/header');
+        $this->load->view('po/print', $data);
+        // $this->load->view('layout/sidebar');
+        // $this->load->view('layout/footer');
+    }
+
+
+
 
 
     function tambah()
@@ -103,11 +141,11 @@ class PurchaseOrder extends CI_Controller
     public function proses_po()
     {
 
-        $data_pelanggan = array(
-            'no_trans' => $this->input->post('no_trans'),
+        // $data_pelanggan = array(
+        //     'no_trans' => $this->input->post('no_trans'),
 
-        );
-        $this->m_invoice->tambah_invoice($data_pelanggan);
+        // );
+        // $this->m_invoice->tambah_invoice($data_pelanggan);
         //-------------------------Input data order------------------------------
         $data_order = array(
             'nama' => $this->input->post('nama'),
@@ -126,7 +164,7 @@ class PurchaseOrder extends CI_Controller
             foreach ($cart as $item) {
                 $data_detail = array(
                     'order_id' => $id_order,
-                    'produk' => $item['id'],
+                    'produk' => $item['name'],
                     'qty' => $item['qty'],
                     'harga' => $item['price']
                 );

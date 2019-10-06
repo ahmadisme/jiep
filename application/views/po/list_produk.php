@@ -48,7 +48,6 @@
                                     <input type="hidden" name="id" value="<?php echo $row->id_produk; ?>" />
                                     <input type="hidden" name="nama" value="<?php echo $row->nama_produk; ?>" />
                                     <input type="hidden" name="harga" value="<?php echo $row->harga_beli; ?>" />
-
                                     <input type="hidden" name="qty" value="1" />
                                     <td><button type="submit" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-plus"></i></button>
                                 </form>
@@ -83,7 +82,7 @@
     <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
-            <form method="post" action="<?php echo base_url('produk/delete/') . $row->id_produk; ?>">
+            <form method="post" action="<?php echo base_url('produk/hapus/') . $row->id_produk; ?>">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Konfirmasi</h4>
